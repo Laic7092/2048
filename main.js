@@ -16,6 +16,7 @@ const initial = (g) => {
         x: index % ROW,
         y: Math.floor(index / COL)
     }))
+    const { clientWidth: cellWidth, clientHeight: cellHeight } = document.querySelector('.background-grid-cell')
     const generateCell = () => {
         const emptyCells = grid.filter((value) => value.value === 0)
         const randomIndex = Math.floor(Math.random() * emptyCells.length)
@@ -23,9 +24,9 @@ const initial = (g) => {
         cellData.value = Math.random() > 0.5 ? 2 : 4
         const cellEl = document.createElement('div')
         cellData.el = cellEl
-        cellEl.style.width = '63px'
-        cellEl.style.height = '63px'
-        cellEl.style.transform = `translate(${cellData.x * 63 + cellData.x * 16}px,${cellData.y * 63 + cellData.y * 16}px)`
+        cellEl.style.width = `${cellWidth}px`
+        cellEl.style.height = `${cellWidth}px`
+        cellEl.style.transform = `translate(${cellData.x * cellWidth + cellData.x * 16}px,${cellData.y * cellHeight + cellData.y * 16}px)`
         cellEl.classList.add('front-grid-cell')
         cellEl.classList.add(`cell-${cellData.value}`)
         cellEl.innerText = cellData.value
