@@ -109,7 +109,7 @@ const initial = (g) => {
     }
 
     let canOper = true
-    useDirection((direction) => {
+    useDirection(g, (direction) => {
         if (!canOper) return
         canOper = false
         move(direction)
@@ -122,15 +122,19 @@ const initial = (g) => {
     })
 }
 
-const useDirection = (cb) => {
+const useDirection = (g, cb) => {
     let startX = 0
     let startY = 0
     let direction
-    addEventListener('touchstart', (e) => {
+    g.addEventListener('touchstart', (e) => {
+        e.cancelable && e.preventDefault();
         const { clientX, clientY } = e.changedTouches[0];
         [startX, startY] = [clientX, clientY]
+    }, {
+        passive: false
     })
-    addEventListener('touchend', (e) => {
+    g.addEventListener('touchend', (e) => {
+        e.cancelable && e.preventDefault();
         const { clientX, clientY } = e.changedTouches[0]
         let [x, y] = [startX - clientX, startY - clientY]
         if (Math.abs(x) < 1 && Math.abs(y) < 1) return
@@ -142,6 +146,8 @@ const useDirection = (cb) => {
                 ? 'down'
                 : 'up'
         cb(direction)
+    }, {
+        passive: false
     })
     addEventListener('keyup', (e) => {
         const { code } = e
