@@ -9,6 +9,7 @@ addEventListener('load', (e) => {
 const initial = (g) => {
     const ROW = 4
     const COL = 4
+    const GAP = 16
     const grid = new Array(ROW * COL).fill(0).map((value, index) => ({
         value: 0,
         el: null,
@@ -26,7 +27,7 @@ const initial = (g) => {
         cellData.el = cellEl
         cellEl.style.width = `${cellWidth}px`
         cellEl.style.height = `${cellWidth}px`
-        cellEl.style.transform = `translate(${cellData.x * cellWidth + cellData.x * 16}px,${cellData.y * cellHeight + cellData.y * 16}px)`
+        cellEl.style.transform = `translate(${cellData.x * cellWidth + cellData.x * GAP}px,${cellData.y * cellHeight + cellData.y * GAP}px)`
         cellEl.classList.add('front-grid-cell')
         cellEl.classList.add(`cell-${cellData.value}`)
         cellEl.innerText = cellData.value
@@ -66,7 +67,7 @@ const initial = (g) => {
                     clearCell(cell)
                     insertIndex++
                     const promise = insertedCell.el.animate([{
-                        transform: `translate(${insertedCell.x * 63 + insertedCell.x * 16}px,${insertedCell.y * 63 + insertedCell.y * 16}px)`
+                        transform: `translate(${insertedCell.x * cellWidth + insertedCell.x * GAP}px,${insertedCell.y * cellHeight + insertedCell.y * GAP}px)`
                     }], {
                         duration: 100,
                         easing: 'ease-in-out',
